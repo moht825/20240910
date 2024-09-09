@@ -1,0 +1,140 @@
+수열과 구간 쿼리 4
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int* solution(int arr[], size_t arr_len, int** queries, size_t queries_rows, size_t queries_cols) 
+{
+    
+    int* answer = (int*)malloc(sizeof(int) * arr_len);
+    
+    for (int i = 0; i < queries_rows; i++) 
+    {
+        for (int j = queries[i][0]; j <= queries[i][1]; j++) 
+        {
+            if (j % queries[i][2] == 0)
+            {
+                arr[j]++;
+            }
+        }
+    }
+    
+    for (int i = 0; i < arr_len; i++)
+    {
+        answer[i] = arr[i];
+    }
+    return answer;
+}
+
+배열 만들기 2
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int* solution(int l, int r) 
+{
+    int* answer = (int*)malloc(sizeof(int) * 1000000);
+    int point = 0, check = 0;
+    int idx = 0, temp;
+    
+    for (int i = l; i <= r; i++) 
+    {
+        temp = i;
+        point = 0, check = 0;
+        
+        while (temp > 0) 
+        {
+            if (temp % 10 == 0 || temp % 10 == 5)
+                check++;
+            point++;
+            temp /= 10;
+        }
+        
+        if (check == point) 
+        {
+            answer[idx++] = i;
+        }
+    }
+    
+    if (idx == 0)
+        answer[idx] = -1;
+    
+    return answer;
+}
+
+카운트 업
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int* solution(int start_num, int end_num) 
+{
+    int* answer = (int*)malloc((end_num - start_num + 1) * sizeof(int));
+    int idx = 0;
+        
+    for (int i = start_num; i <= end_num; i++) 
+        answer[idx++] = i;
+    
+    return answer;
+}
+
+콜라츠 수열 만들기
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int* solution(int n) 
+{
+    int* answer = (int*)malloc(sizeof(int) * 1000);
+    int idx = 0;
+    
+    while (1) 
+    {
+        answer[idx++] = n;
+        
+        if (n == 1)
+            break;
+        
+        if (n % 2 == 0)
+            n /= 2;
+        else
+            n = 3 * n + 1;
+    }
+    
+    return answer;
+}
+
+배열 만들기 4
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+
+int* solution(int arr[], size_t arr_len) 
+{
+    int* stk = (int*)malloc(sizeof(int) * 100000);
+    int i = 0;
+    int idx = 0;
+    
+    while (i < arr_len) 
+    {
+        if (idx == 0)
+            stk[idx++] = arr[i++];
+        else 
+        {
+            if (stk[idx - 1] < arr[i])
+                stk[idx++] = arr[i++];
+            else 
+            {
+                stk[idx - 1] = 0;
+                idx--;
+            }
+        }
+    }
+    
+    return stk;
+}
